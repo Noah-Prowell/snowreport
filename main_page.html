@@ -6,11 +6,12 @@
 -->
 <html>
 	<head>
-		<title>Snow Report</title>
+		<title>Data Vis</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	</head>
 	<body class="is-preload">
 		<div id="wrapper">
@@ -19,23 +20,34 @@
 			<div id="main">
 
 				<!-- Header -->
-					<header id="header">
-						<h1>Snow report</h1>
-						<p>Daily snow totals around Colorado</p>
-						<!-- Button to navigate to another page -->
-						<button onclick="window.location.href='main_page.html'" style="margin-top: 10px;">Go to Data Visualization</button>
-					</header>
+				<header id="header">
+					<h1>Grandby</h1>
+                <!-- Main Content -->
+				<div id="content">
+					<canvas id="myChart" width="1600" height="900"></canvas>
+				</div>
+				</header>
+
+
+
 				<!-- Footer -->
-					<footer id="footer">
-						<span class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>.</span>
-					</footer>
+				<footer id="footer">
+					<span class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>.</span>
+				</footer>
 
 			</div>
 		</div>
-		<script>
+
+		<!-- External JavaScript file -->
+        <script>
 			window.onload = function() { document.body.classList.remove('is-preload'); }
 			window.ontouchmove = function() { return false; }
 			window.onorientationchange = function() { document.body.scrollTop = 0; }
 		</script>
+		<script src="granby_depth.js"></script>
+
 	</body>
 </html>
+
+
+
