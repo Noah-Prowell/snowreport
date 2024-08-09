@@ -1,85 +1,114 @@
+let snowDepthChart = null;
+let precipitationChart = null;
+
 window.onload = function() {
-    console.log('Starting first API call for Snow Depth...');
-    // First API call for Snow Depth
-    fetch('https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=SNWD&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=2024-01-07&enddate=2024-01-14&limit=1000', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'text/plain',
-            'token': 'ptCSsKJigBiLLmlIdcjtNPMGhdYTpiXG'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const results = data.results;
-        const snowDates = results.map(item => item.date.split('T')[0]); // Extract dates
-        const snowValues = results.map(item => item.value); // Extract values
+    // Function to fetch and update graphs
+    function updateGraphs(startDate, endDate) {
+        console.log(`Fetching data from ${startDate} to ${endDate}...`);
 
-        // Visualize the Snow Depth data
-        const ctx1 = document.getElementById('depth').getContext('2d');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: snowDates,
-                datasets: [{
-                    label: 'Snow Depth (in)',
-                    data: snowValues,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
+        // Snow Depth API call
+        fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=SNWD&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=${startDate}&enddate=${endDate}&limit=1000`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'text/plain',
+                'token': 'ptCSsKJigBiLLmlIdcjtNPMGhdYTpiXG'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const results = data.results;
+            const snowDates = results.map(item => item.date.split('T')[0]);
+            const snowValues = results.map(item => item.value);
+
+            const ctx1 = document.getElementById('depth').getContext('2d');
+
+            if (snowDepthChart) {
+                console.log('Destroying existing Snow Depth chart');
+                snowDepthChart.destroy();
+            }
+            snowDepthChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: snowDates,
+                    datasets: [{
+                        label: 'Snow Depth (in)',
+                        data: snowValues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
+            });
+        })
+        .catch(error => console.error('Error fetching Snow Depth data:', error));
+
+        // Precipitation API call
+        fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=PRCP&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=${startDate}&enddate=${endDate}&limit=1000`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'text/plain',
+                'token': 'ptCSsKJigBiLLmlIdcjtNPMGhdYTpiXG'
             }
-        });
-    })
-    .catch(error => console.error('Error fetching snow depth data:', error));
+        })
+        .then(response => response.json())
+        .then(data => {
+            const results = data.results;
+            const precipDates = results.map(item => item.date.split('T')[0]);
+            const precipValues = results.map(item => item.value);
 
-    // Second API call for Precipitation
-    console.log('Starting second API call for Precipitation...');
-    fetch('https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=PRCP&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=2024-01-07&enddate=2024-01-14&limit=1000', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'text/plain',
-            'token': 'ptCSsKJigBiLLmlIdcjtNPMGhdYTpiXG'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const results = data.results;
-        const precipDates = results.map(item => item.date.split('T')[0]); // Extract dates
-        const precipValues = results.map(item => item.value); // Extract values
-
-        // Visualize the Precipitation data
-        const ctx2 = document.getElementById('precipitation').getContext('2d');
-        new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: precipDates,
-                datasets: [{
-                    label: 'Precipitation (in)',
-                    data: precipValues,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
+            const ctx2 = document.getElementById('precipitation').getContext('2d');
+            if (precipitationChart) {
+                console.log('Destroying existing Precipitation chart');
+                precipitationChart.destroy();
+            }
+            precipitationChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: precipDates,
+                    datasets: [{
+                        label: 'Precipitation (in)',
+                        data: precipValues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-    })
-    .catch(error => console.error('Error fetching precipitation data:', error));
+            });
+        })
+        .catch(error => console.error('Error fetching Precipitation data:', error));
+    }
+
+    // Initial load with base data
+    const initialStartDate = '2024-01-07';
+    const initialEndDate = '2024-01-14';
+    updateGraphs(initialStartDate, initialEndDate);
+
+    // Event listener for the Update button
+    document.getElementById('updateButton').addEventListener('click', () => {
+        const startDate = document.getElementById('startDate').value; // Will be in yyyy-mm-dd format
+        const endDate = document.getElementById('endDate').value;   
+        if (startDate && endDate) {
+            updateGraphs(startDate, endDate);
+        } else {
+            alert('Please enter both start and end dates.');
+        }
+    });
 };
