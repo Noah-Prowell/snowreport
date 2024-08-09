@@ -2202,6 +2202,30 @@ canvas {
     width: 1200px; /* Set a specific width */
     height: 900px; /* Set a specific height */
 }
+
+/*Date Inputs*/
+.date-inputs {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-inputs label {
+    margin-right: 10px;
+}
+
+.date-inputs input {
+    margin-right: 20px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#updateButton:hover {
+    background-color: #45a049;
+}
+
 /* Sidebar */
 
 	#sidebar > section,
