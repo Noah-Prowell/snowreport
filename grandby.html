@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	</head>
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
@@ -19,8 +20,7 @@
 					<div class="container">
 
 						<!-- Logo -->
-							<h1 id="logo"><a href="index.html">Snow Report</a></h1>
-							<p>A site built by winter athletes for winter athletes</p>
+							<h1 id="logo"><a href="index.html">Grandby</a></h1>
 
 						<!-- Nav -->
 							<nav id="nav">
@@ -34,6 +34,27 @@
 								</ul>
 							</nav>
 
+					</div>
+				</section>
+
+			<!-- Main -->
+				<section id="main">
+					<div class="container">
+						<div id="content">
+
+							<!-- Post -->
+								<article class="box post">
+									<div class="chart-container">
+										<div class="chart-box">
+											<canvas id="depth"></canvas>
+										</div>
+										<div class="chart-box">
+											<canvas id="preipitation"></canvas>
+										</div>
+									</div>
+								</article>
+
+						</div>
 					</div>
 				</section>
 
@@ -122,6 +143,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/depth.js"></script>
 
 	</body>
 </html>

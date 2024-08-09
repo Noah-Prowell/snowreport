@@ -2180,7 +2180,28 @@ input, select, textarea {
 			margin: 0;
 			padding: 0;
 		}
+/*Chart*/
+.chart-container {
+    display: flex;
+    flex-direction: column; /* Stack the charts vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adds space between the charts */
+    margin-top: 20px;
+}
 
+.chart-box {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add space below each chart */
+}
+
+canvas {
+    width: 1200px; /* Set a specific width */
+    height: 900px; /* Set a specific height */
+}
 /* Sidebar */
 
 	#sidebar > section,
