@@ -2,12 +2,17 @@ let snowDepthChart = null;
 let precipitationChart = null;
 
 window.onload = function() {
+    // Function to get the stationId from the HTML
+    function getStationId() {
+        const stationDataElement = document.getElementById('stationData');
+        return stationDataElement.getAttribute('data-station-id');
+    }
     // Function to fetch and update graphs
     function updateGraphs(startDate, endDate) {
-        console.log(`Fetching data from ${startDate} to ${endDate}...`);
-
+        const stationId = getStationId();
+        console.log(`Fetching data from ${startDate} to ${endDate} for depth station ${stationId}...`);
         // Snow Depth API call
-        fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=SNWD&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=${startDate}&enddate=${endDate}&limit=1000`, {
+        fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=SNWD&locationid=FIPS:08&stationid=${stationId}&units=standard&startdate=${startDate}&enddate=${endDate}&limit=1000`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'text/plain',
@@ -50,9 +55,9 @@ window.onload = function() {
             });
         })
         .catch(error => console.error('Error fetching Snow Depth data:', error));
-
+        console.log(`Fetching data from ${startDate} to ${endDate} for precipitation station ${stationId}...`);
         // Precipitation API call
-        fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=PRCP&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=${startDate}&enddate=${endDate}&limit=1000`, {
+        fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=PRCP&locationid=FIPS:08&stationid=${stationId}&units=standard&startdate=${startDate}&enddate=${endDate}&limit=1000`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'text/plain',

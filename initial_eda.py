@@ -17,8 +17,8 @@ datasets = 'https://www.ncei.noaa.gov/cdo-web/api/v2/datasets?enddate=2024-06-10
 
 
 
-snow_depth_url = 'https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=SNWD&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=2024-01-07&enddate=2024-01-14&limit=1000'
-precipitation_url = 'https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=PRCP&locationid=FIPS:08&stationid=GHCND:USS0005K14S&units=standard&startdate=2024-01-07&enddate=2024-01-14&limit=1000'
+snow_depth_url = 'https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=SNWD&locationid=FIPS:08&stationid=GHCND:USS0005K21&units=standard&startdate=2024-01-07&enddate=2024-01-14&limit=1000'
+precipitation_url = 'https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=PRCP&locationid=FIPS:08&stationid=GHCND:USS0005K09S&units=standard&startdate=2024-01-07&enddate=2024-01-14&limit=1000'
 #precipitation and snow depth in inches
 headers = {'token':'ptCSsKJigBiLLmlIdcjtNPMGhdYTpiXG'}
 r = requests.get(url = precipitation_url, headers=headers)
