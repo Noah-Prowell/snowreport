@@ -2222,10 +2222,6 @@ canvas {
     border-radius: 5px;
 }
 
-#updateButton:hover {
-    background-color: #45a049;
-}
-
 /* Sidebar */
 
 	#sidebar > section,
