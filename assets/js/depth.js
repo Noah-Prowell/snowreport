@@ -68,7 +68,7 @@ window.onload = function() {
         .then(data => {
             const results = data.results;
             const precipDates = results.map(item => item.date.split('T')[0]);
-            const precipValues = results.map(item => item.value);
+            const precipValues = results.map(item => item.value * 10);
 
             const ctx2 = document.getElementById('precipitation').getContext('2d');
             if (precipitationChart) {
