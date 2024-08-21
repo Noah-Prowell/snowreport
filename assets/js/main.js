@@ -53,7 +53,7 @@
 				.appendTo($body)
 				.panel({
 					delay: 500,
-					hideOnClick: true,
+					hideOnClick: true, 
 					hideOnSwipe: true,
 					resetScroll: true,
 					resetForms: true,
@@ -70,26 +70,31 @@ const pages = {
 	location3: `<div id="graph3"></div>`
     // Add more pages as needed
 };
-
-// Function to handle navigation
+// Attach event listeners for dropdown items once
+document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', function(event) {
+        const selectedText = event.target.textContent; // Get the text of the clicked item
+        console.log(`Selected item: ${selectedText}`);
+        
+        // Update the logo element with the selected text
+        const targetElement = document.getElementById('logo');
+        targetElement.textContent = selectedText;
+        
+        // Navigate to the appropriate page based on the selected location
+        if (selectedText === 'Location 1') {
+            navigate('location1');
+        } else if (selectedText === 'Location 2') {
+            navigate('location2');
+        } else if (selectedText === 'Location 3') {
+            navigate('location3');
+        }
+    });
+});
 function navigate(page) {
     const contentDiv = document.getElementById('content');
     contentDiv.innerHTML = pages[page];
-
-    // Update the page title in the header
-	document.querySelectorAll('.dropdown-item').forEach(item => {
-		item.addEventListener('click', function(event) {
-			const selectedText = event.target.textContent; // Get the text of the clicked item
-			console.log(`Selected item: ${selectedText}`);
-	
-			// Assuming you want to replace a specific text on the page with the selected text
-			const targetElement = document.getElementById('logo'); // Target element where the replacement should happen
-			targetElement.textContent = selectedText;
-		});
-	});
-    // const pageTitle = document.getElementById('logo');
-    // pageTitle.innerText = page === 'home' ? 'Welcome to the Snow Report' : `${page.replace('location', 'Location ')}`;
-
+    console.log(`Page Number ${page}`);
+    
     // Load the corresponding data for the graph if needed
     if (page === 'location1') {
         loadGraph1();
@@ -109,6 +114,16 @@ function loadGraph1() {
     // Fetch data and display the first graph
     console.log("Loading data for Location 1...");
     // Add your chart initialization code here
+	// Event listener for the Update button
+    document.getElementById('updateButton').addEventListener('click', () => {
+        const startDate = document.getElementById('startDate').value; // Will be in yyyy-mm-dd format
+        const endDate = document.getElementById('endDate').value;   
+        if (startDate && endDate) {
+            updateGraphs(startDate, endDate, stationId);
+        } else {
+            alert('Please enter both start and end dates.');
+        }
+    });
 }
 
 function loadGraph2() {
@@ -119,6 +134,16 @@ function loadGraph2() {
 	updateGraphs(startDate, endDate, stationId);
     console.log("Loading data for Location 2...");
     // Add your chart initialization code here
+	// Event listener for the Update button
+    document.getElementById('updateButton').addEventListener('click', () => {
+        const startDate = document.getElementById('startDate').value; // Will be in yyyy-mm-dd format
+        const endDate = document.getElementById('endDate').value;   
+        if (startDate && endDate) {
+            updateGraphs(startDate, endDate, stationId);
+        } else {
+            alert('Please enter both start and end dates.');
+        }
+    });
 }
 
 function loadGraph3() {
@@ -128,10 +153,16 @@ function loadGraph3() {
     const endDate = '2024-01-14';
 	updateGraphs(startDate, endDate, stationId);
     console.log("Loading data for Location 3...");
+	// Event listener for the Update button
+    document.getElementById('updateButton').addEventListener('click', () => {
+        const startDate = document.getElementById('startDate').value; // Will be in yyyy-mm-dd format
+        const endDate = document.getElementById('endDate').value;   
+        if (startDate && endDate) {
+            updateGraphs(startDate, endDate, stationId);
+        } else {
+            alert('Please enter both start and end dates.');
+        }
+    });
     // Add your chart initialization code here
 }
 
-// Initialize the SPA with the home page
-window.onload = function() {
-    navigate('home');
-};

@@ -25,7 +25,7 @@ let precipitationChart = null;
             const results = data.results;
             const snowDates = results.map(item => item.date.split('T')[0]);
             const snowValues = results.map(item => item.value);
-            console.log(results)
+            console.log(document.getElementById('depth'))
             const ctx1 = document.getElementById('depth').getContext('2d');
             console.log(ctx1);
             if (snowDepthChart) {
@@ -109,13 +109,13 @@ window.onload = function() {
     updateGraphs(initialStartDate, initialEndDate, stationId);
 
     // Event listener for the Update button
-    document.getElementById('updateButton').addEventListener('click', () => {
-        const startDate = document.getElementById('startDate').value; // Will be in yyyy-mm-dd format
-        const endDate = document.getElementById('endDate').value;   
-        if (startDate && endDate) {
-            updateGraphs(startDate, endDate, stationId);
-        } else {
-            alert('Please enter both start and end dates.');
-        }
-    });
+    // document.getElementById('updateButton').addEventListener('click', () => {
+    //     const startDate = document.getElementById('startDate').value; // Will be in yyyy-mm-dd format
+    //     const endDate = document.getElementById('endDate').value;   
+    //     if (startDate && endDate) {
+    //         updateGraphs(startDate, endDate, stationId);
+    //     } else {
+    //         alert('Please enter both start and end dates.');
+    //     }
+    // });
 };
