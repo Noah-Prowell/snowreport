@@ -1,15 +1,16 @@
 let snowDepthChart = null;
 let precipitationChart = null;
 
-window.onload = function() {
+
     // Function to get the stationId from the HTML
-    function getStationId() {
-        const stationDataElement = document.getElementById('stationData');
-        return stationDataElement.getAttribute('data-station-id');
-    }
+    // function getStationId() {
+    //     const stationDataElement = document.getElementById('stationData');
+    //     return stationDataElement.getAttribute('data-station-id');
+    // }
     // Function to fetch and update graphs
-    function updateGraphs(startDate, endDate) {
-        const stationId = getStationId();
+    function updateGraphs(startDate, endDate, stationId) {
+        // const stationId = getStationId();
+        console.log(`depth station ${stationId}`);
         console.log(`Fetching data from ${startDate} to ${endDate} for depth station ${stationId}...`);
         // Snow Depth API call
         fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=SNWD&locationid=FIPS:08&stationid=${stationId}&units=standard&startdate=${startDate}&enddate=${endDate}&limit=1000`, {
@@ -24,9 +25,9 @@ window.onload = function() {
             const results = data.results;
             const snowDates = results.map(item => item.date.split('T')[0]);
             const snowValues = results.map(item => item.value);
-
+            console.log(results)
             const ctx1 = document.getElementById('depth').getContext('2d');
-
+            console.log(ctx1);
             if (snowDepthChart) {
                 console.log('Destroying existing Snow Depth chart');
                 snowDepthChart.destroy();
@@ -100,18 +101,19 @@ window.onload = function() {
         })
         .catch(error => console.error('Error fetching Precipitation data:', error));
     }
-
+window.onload = function() {
     // Initial load with base data
     const initialStartDate = '2024-01-07';
     const initialEndDate = '2024-01-14';
-    updateGraphs(initialStartDate, initialEndDate);
+    const stationId = 'GHCND:USS0005K14S'
+    updateGraphs(initialStartDate, initialEndDate, stationId);
 
     // Event listener for the Update button
     document.getElementById('updateButton').addEventListener('click', () => {
         const startDate = document.getElementById('startDate').value; // Will be in yyyy-mm-dd format
         const endDate = document.getElementById('endDate').value;   
         if (startDate && endDate) {
-            updateGraphs(startDate, endDate);
+            updateGraphs(startDate, endDate, stationId);
         } else {
             alert('Please enter both start and end dates.');
         }

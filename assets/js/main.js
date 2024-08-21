@@ -63,3 +63,75 @@
 				});
 
 })(jQuery);
+// Define your content for different pages
+const pages = {
+    location1: `<div id="graph1"></div>`,
+    location2: `<div id="graph2"></div>`,
+	location3: `<div id="graph3"></div>`
+    // Add more pages as needed
+};
+
+// Function to handle navigation
+function navigate(page) {
+    const contentDiv = document.getElementById('content');
+    contentDiv.innerHTML = pages[page];
+
+    // Update the page title in the header
+	document.querySelectorAll('.dropdown-item').forEach(item => {
+		item.addEventListener('click', function(event) {
+			const selectedText = event.target.textContent; // Get the text of the clicked item
+			console.log(`Selected item: ${selectedText}`);
+	
+			// Assuming you want to replace a specific text on the page with the selected text
+			const targetElement = document.getElementById('logo'); // Target element where the replacement should happen
+			targetElement.textContent = selectedText;
+		});
+	});
+    // const pageTitle = document.getElementById('logo');
+    // pageTitle.innerText = page === 'home' ? 'Welcome to the Snow Report' : `${page.replace('location', 'Location ')}`;
+
+    // Load the corresponding data for the graph if needed
+    if (page === 'location1') {
+        loadGraph1();
+    } else if (page === 'location2') {
+        loadGraph2();
+    } else if (page === 'location3') {
+        loadGraph3();
+    }
+}
+
+// Functions to load graphs for each location
+function loadGraph1() {
+	const stationId = "GHCND:USS0005K14S" //Granby
+	const startDate = '2024-01-07';
+    const endDate = '2024-01-14';
+	updateGraphs(startDate, endDate, stationId);
+    // Fetch data and display the first graph
+    console.log("Loading data for Location 1...");
+    // Add your chart initialization code here
+}
+
+function loadGraph2() {
+    // Fetch data and display the second graph
+	const stationId = "GHCND:USS0005K21S" //Jones Pass
+	const startDate = '2024-01-07';
+    const endDate = '2024-01-14';
+	updateGraphs(startDate, endDate, stationId);
+    console.log("Loading data for Location 2...");
+    // Add your chart initialization code here
+}
+
+function loadGraph3() {
+    // Fetch data and display the second graph
+	const stationId = "GHCND:USS0005K09S" //Loveland
+	const startDate = '2024-01-07';
+    const endDate = '2024-01-14';
+	updateGraphs(startDate, endDate, stationId);
+    console.log("Loading data for Location 3...");
+    // Add your chart initialization code here
+}
+
+// Initialize the SPA with the home page
+window.onload = function() {
+    navigate('home');
+};
